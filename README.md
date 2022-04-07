@@ -9,7 +9,7 @@ The database name is `sparkifydb`. The project's star schema contains 1 fact tab
 ### Fact Table(s)
 
 1. **songplays** - records in log data associated with song plays i.e. records with page `NextSong`
-    - columns: *songplay_id (pkey), start_time (foreign key to **time**), user_id (foreign key to **users**), level, song_id (foreign key to **songs**, artist_id (foreign key to **artists**), session_id, location, user_agent*
+    - columns: *songplay_id (pkey), start_time (foreign key to **time**), user_id (foreign key to **users**), level, song_id (foreign key to **songs**), artist_id (foreign key to **artists**), session_id, location, user_agent*
     
 ### Dimension Table(s)
 
