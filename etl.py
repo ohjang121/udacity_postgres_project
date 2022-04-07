@@ -6,7 +6,7 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
-    ''' Process data in a given filepath (data/song_data) and insert them into song and artist tables
+    ''' Process data in a given filepath (data/song_data) and insert them into songs and artists tables
     Only has 1 row per file, hence insert first index of the df
     '''
     
@@ -23,7 +23,9 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
-    ''' Process data in a given filepath (data/log_data) and insert them into time, user and songplay tables
+    ''' Process data in a given filepath (data/log_data) and insert them into time, users and songplays tables
+    Iterates through each row in the dataframe per file then inserts it into respective tables
+    songplays table relies on data from both data/song_data and data/log_data, hence pull song_id and artist_id from song_select query
     '''
     
     # open log file
@@ -69,6 +71,12 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    '''
+    Iterates recursively through all JSON files in a given filepath
+    Logs total number of files found
+    Iterates through each file per directory until no further subdirectories are found
+    '''
+
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
