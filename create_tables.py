@@ -13,7 +13,7 @@ def create_database():
     conn = psycopg2.connect(host='127.0.0.1', 
                             database='udacity', 
                             user='joh', 
-                            password='jang6156Ok!')
+                            password='password')
     conn.set_session(autocommit=True)
     cur = conn.cursor()
     
