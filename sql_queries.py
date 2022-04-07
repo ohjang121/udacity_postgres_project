@@ -10,11 +10,11 @@ time_table_drop = "DROP TABLE IF EXISTS time;"
 
 songplay_table_create = ("""
 CREATE TABLE IF NOT EXISTS songplays (songplay_id SERIAL PRIMARY KEY, -- autoincrement surrogate key, not in the log file
-                                      start_time TIMESTAMP NOT NULL, -- log.ts
-                                      user_id INT NOT NULL, -- log.userId
+                                      start_time TIMESTAMP NOT NULL REFERENCES time(start_time), -- log.ts
+                                      user_id INT NOT NULL REFERENCES users(user_id), -- log.userId
                                       level VARCHAR, -- log.level
-                                      song_id VARCHAR, -- song.song_id
-                                      artist_id VARCHAR, -- song.artist_id
+                                      song_id VARCHAR REFERENCES songs(song_id), -- song.song_id
+                                      artist_id VARCHAR REFERENCES artists(artist_id), -- song.artist_id
                                       session_id INT, -- log.sessionId
                                       location VARCHAR, -- log.location
                                       user_agent VARCHAR -- log.userAgent
@@ -82,7 +82,9 @@ INSERT INTO users (user_id,
                    gender, 
                    level)
 VALUES (%s, %s, %s, %s, %s)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (user_id)
+DO UPDATE
+    SET level = EXCLUDED.level; -- update level column when it changes either from free to paid, or vice versa. EXCLUDED = newly inserted row
 """)
 
 song_table_insert = ("""
