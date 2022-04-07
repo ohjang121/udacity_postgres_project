@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS artists (artist_id VARCHAR PRIMARY KEY, -- song.artis
 """)
 
 time_table_create = ("""
-CREATE TABLE IF NOT EXISTS time (start_time BIGINT PRIMARY KEY, -- log.ts
+CREATE TABLE IF NOT EXISTS time (start_time TIMESTAMP PRIMARY KEY, -- log.ts
                                  hour INT, 
                                  day INT,
                                  week INT,
